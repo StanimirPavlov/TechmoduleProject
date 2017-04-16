@@ -91,8 +91,20 @@ module.exports = {
         })
     },
 
+    contactsGet: (req, res) => {
+        res.render('user/contacts');
+    },
+
+    contactsPost: (req, res) =>{
+        res.redirect('/');
+    },
+
     logout: (req, res) => {
         req.logOut();
         res.redirect('/');
     }
 };
+
+
+
+
