@@ -10,13 +10,15 @@
                     {{article.content}}
                 </p>
 
+                {{#if article.imagePath}}
+                <img src="{{article.imagePath}}" width="250" alt="Image">
+                {{/if}}
 
-                <img src="{{article.imagePath}}" alt="Image">
-
-                <small class="author">
-                    {{article.author.fullName}}
-                </small>
-
+                <div class="author-details">
+                    <small class="author">
+                        {{article.author.fullName}}
+                    </small>
+                </div>
                 <footer>
                     <div class="pull-right">
                         {{#if isUserAuthorized}}

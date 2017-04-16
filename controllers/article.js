@@ -45,7 +45,6 @@ module.exports = {
             articleArgs.imagePath = `/images/${image.name}`;
         }
 
-
         Article.create(articleArgs).then(article => {
             req.user.articles.push(article.id);
             req.user.save(err =>{
@@ -112,15 +111,6 @@ module.exports = {
             errorMsg = 'Article content cannot be empty';
         }
 
-        if(errorMsg){
-            res.render('article/edit', {error: errorMsg})
-        }else {
-            Article.update({_id:id}, {$set:{title: articleArgs.title, content: articleArgs.content}})
-                .then(updateStatus =>{
-                   res.redirect(`/article/details/${id}`);
-                });
-        }
-
         let image = req.files.image;
 
         if(image){
@@ -131,8 +121,18 @@ module.exports = {
                     console.log(err.message);
                 }
             });
-
+        }
+        if(image) {
             articleArgs.imagePath = `/images/${image.name}`;
+        }
+
+        if(errorMsg){
+            res.render('article/edit', {error: errorMsg})
+        }else {
+            Article.update({_id:id}, {$set:{title: articleArgs.title, content: articleArgs.content, imagePath: articleArgs.imagePath}})
+                .then(updateStatus =>{
+                   res.redirect(`/article/details/${id}`);
+                });
         }
     },
 
