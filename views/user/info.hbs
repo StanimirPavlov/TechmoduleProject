@@ -1,0 +1,24 @@
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <user>
+                <header>
+                    <h3>{{user.fullName}}</h3>
+                </header>
+                {{#if user.imagePath}}
+                    <img src="{{user.imagePath}}" width="150" alt="Image">
+                {{/if}}
+                {{#if user.resume}}
+                <p>
+                    About the author: {{user.resume}}
+                </p>
+                {{/if}}
+                <footer>
+                    <div class="pull-right">
+                        <a class="btn btn-default btn-xs" href="/">Back &raquo;</a>
+                    </div>
+                </footer>
+            </user>
+        </div>
+    </div>
+</div>

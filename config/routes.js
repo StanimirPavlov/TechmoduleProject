@@ -28,5 +28,7 @@ module.exports = (app) => {
     app.get('/user/contacts', userController.contactsGet);
     app.post('/user/contacts', userController.contactsPost);
 
+    app.get('/user/info', userController.infoGet);
+
 };
 

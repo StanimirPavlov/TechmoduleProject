@@ -8,9 +8,11 @@ let userSchema = mongoose.Schema(
         email: {type: String, required: true, unique: true},
         passwordHash: {type: String, required: true},
         fullName: {type: String, required: true},
+        resume: {type: String},
         articles: [{type: ObjectId, ref: 'Article'}],
         roles:[{type: ObjectId, ref:'Role'}],
-        salt: {type: String, required: true}
+        salt: {type: String, required: true},
+        imagePath: {type: String}
     }
 );
 

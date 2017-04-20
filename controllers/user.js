@@ -25,13 +25,30 @@ module.exports = {
                 let salt = encryption.generateSalt();
                 let passwordHash = encryption.hashPassword(registerArgs.password, salt);
 
+                let image = req.files.image;
+
+                if(image){
+                    let filename = image.name;
+
+                    image.mv(`./public/pictures/${filename}`, err =>{
+                        if(err){
+                            console.log(err.message);
+                        }
+                    });
+                }
+
+                registerArgs.imagePath = `/pictures/${image.name}`;
+
                 let roles = [];
                 Role.findOne({name: 'User'}).then(role =>{
                   roles.push(role.id);
 
+
                   let userObject = {
                       email: registerArgs.email,
                       passwordHash: passwordHash,
+                      imagePath: registerArgs.imagePath,
+                      resume: registerArgs.resume,
                       fullName: registerArgs.fullName,
                       salt: salt,
                       roles: roles
@@ -102,6 +119,10 @@ module.exports = {
     logout: (req, res) => {
         req.logOut();
         res.redirect('/');
+    },
+
+    infoGet: (req, res) => {
+    res.render('user/info');
     }
 };
 

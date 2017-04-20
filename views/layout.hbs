@@ -21,10 +21,10 @@
                 {{#if user}}
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/user/details">Welcome({{user.email}})</a></li>
+                            <li><a href="/user/info">Welcome {{user.fullName}}!</a></li>
                             <li><a href="/article/create">New Article</a></li>
                             <li><a href="/user/logout">Logout</a></li>
-                            <li><a href="/user/contacts">Contacts</a></li> //Contacts
+                            <li><a href="/user/contacts">Contacts</a></li>
                         </ul>
                     </div>
                 {{/if}}
