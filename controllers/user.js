@@ -1,5 +1,6 @@
 const User = require('mongoose').model('User');
 const Role = require('mongoose').model('Role');
+const Article = require('mongoose').model('Article');
 const encryption = require('./../utilities/encryption');
 
 module.exports = {
@@ -122,7 +123,20 @@ module.exports = {
     },
 
     infoGet: (req, res) => {
-    res.render('user/info');
+
+        let userId = req.user.id;
+
+        Article.find({author:userId}).sort({_id:-1}).populate('author').then(articles => {
+            for(let article of articles){
+                if(article.content.length > 165) {
+                    article.content = article.content.substring(0, 165) + '...';
+                }
+            }
+            res.render('user/info', {
+                articles
+            });
+        });
+
     }
 };
 
