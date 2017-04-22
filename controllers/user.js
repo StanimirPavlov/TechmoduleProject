@@ -124,6 +124,7 @@ module.exports = {
 
     infoGet: (req, res) => {
 
+        let articleArgs = req.body;
         let userId = req.user.id;
 
         Article.find({author:userId}).sort({_id:-1}).populate('author').then(articles => {

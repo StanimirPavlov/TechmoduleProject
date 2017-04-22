@@ -19,6 +19,13 @@
                         {{article.author.fullName}}
                     </small>
                 </div>
+
+                {{#if article.tags}}
+                <p><br>
+                    Tags: {{article.tags}}
+                </p>
+                {{/if}}
+
                 <footer>
                     <div class="pull-right">
                         {{#if isUserAuthorized}}

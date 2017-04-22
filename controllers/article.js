@@ -113,15 +113,6 @@ module.exports = {
 
         let image = req.files.image;
 
-        if(image){
-            let filename = image.name;
-
-            image.mv(`./public/images/${filename}`, err =>{
-                if(err){
-                    console.log(err.message);
-                }
-            });
-        }
         if(image) {
             articleArgs.imagePath = `/images/${image.name}`;
         }
@@ -129,7 +120,7 @@ module.exports = {
         if(errorMsg){
             res.render('article/edit', {error: errorMsg})
         }else {
-            Article.update({_id:id}, {$set:{title: articleArgs.title, content: articleArgs.content, imagePath: articleArgs.imagePath}})
+            Article.update({_id:id}, {$set:{title: articleArgs.title, content: articleArgs.content, imagePath: articleArgs.imagePath, tags: articleArgs.tags}})
                 .then(updateStatus =>{
                    res.redirect(`/article/details/${id}`);
                 });
