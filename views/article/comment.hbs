@@ -1,18 +1,18 @@
 <div class="container body-content span=8 offset=2">
     <div class="well">
-        <form class="form-horizontal" method="post" action="/user/contacts">
+        <form class="form-horizontal" method="post" action="/article/comment">
             <fieldset>
-                <legend>Please, send us a message!</legend>
+                <legend>Please, comment the article!</legend>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="inputEmail">Email</label>
+                    <label class="col-sm-4 control-label" for="userName">Full Name</label>
                     <div class="col-sm-4 ">
-                        <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="email" required value={{email}} >
+                        <input type="text" class="form-control" id="inputFullName" required name="fullName" value={{user.fullName}}>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label" for="message">Message</label>
+                    <label class="col-sm-4 control-label" for="message">Comment</label>
                     <div class="col-sm-4 ">
-                        <textarea class="form-control" id="message" placeholder="Message" name="message" rows="10" required value="{{message}}"></textarea>
+                        <textarea class="form-control" id="comment" name="comment" rows="10" required value="{{comment}}"></textarea>
                     </div>
                 </div>
                 <div class="form-group">

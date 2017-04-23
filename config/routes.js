@@ -30,5 +30,8 @@ module.exports = (app) => {
 
     app.get('/user/info', userController.infoGet);
 
+    app.get('/article/comment/:id',articleController.commentGet);
+    app.post('/article/comment',articleController.commentPost); // add /:id
+
 };
 

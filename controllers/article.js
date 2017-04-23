@@ -168,5 +168,13 @@ module.exports = {
                 });
             }
         });
+    },
+
+    commentGet: (req, res)=> {
+            res.render('article/comment');
+    },
+
+    commentPost:(req, res)=>{
+        res.redirect('/');
     }
 };
