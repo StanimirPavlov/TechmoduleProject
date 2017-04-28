@@ -19,7 +19,11 @@
                         {{article.author.fullName}}
                     </small>
                 </div>
-
+                {{#if article.comments}}
+                <p>
+                    {{article.comments}}
+                </p>
+                {{/if}}
                 {{#if article.tags}}
                 <p><br>
                     Tags: {{article.tags}}

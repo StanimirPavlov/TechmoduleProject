@@ -1,4 +1,5 @@
 const Article = require('mongoose').model('Article');
+const Comment = require('mongoose').model('Comment');
 
 module.exports = {
     createGet: (req, res) => {
@@ -100,30 +101,40 @@ module.exports = {
 
     editPost: (req, res) =>{
         let id = req.params.id;
-
         let articleArgs = req.body;
-
         let errorMsg = '';
-
-        if(!articleArgs.title){
-            errorMsg = 'Article title cannot be empty!';
-        }else if(!articleArgs.content){
-            errorMsg = 'Article content cannot be empty';
-        }
-
         let image = req.files.image;
-
         if(image) {
             articleArgs.imagePath = `/images/${image.name}`;
         }
-
         if(errorMsg){
             res.render('article/edit', {error: errorMsg})
         }else {
-            Article.update({_id:id}, {$set:{title: articleArgs.title, content: articleArgs.content, imagePath: articleArgs.imagePath, tags: articleArgs.tags}})
-                .then(updateStatus =>{
-                   res.redirect(`/article/details/${id}`);
-                });
+            if (image) {
+                Article.update({_id: id}, {
+                    $set: {
+                        title: articleArgs.title,
+                        content: articleArgs.content,
+                        imagePath: articleArgs.imagePath,
+                        tags: articleArgs.tags
+                    }
+                })
+                    .then(updateStatus => {
+                        res.redirect(`/article/details/${id}`);
+                    });
+            }
+            else {
+                Article.update({_id: id}, {
+                    $set: {
+                        title: articleArgs.title,
+                        content: articleArgs.content,
+                        tags: articleArgs.tags
+                    }
+                })
+                    .then(updateStatus => {
+                        res.redirect(`/article/details/${id}`);
+                    });
+            }
         }
     },
 
@@ -176,5 +187,40 @@ module.exports = {
 
     commentPost:(req, res)=>{
         res.redirect('/');
+        let commentArgs = req.body;
+
+        let errorMsg = '';
+
+        if(!req.isAuthenticated()) {
+            errorMsg = 'You should be logged in to make comments!';
+        }
+        if(errorMsg){
+            res.render('article/comment', {
+                error: errorMsg
+            });
+            return;
+        }
+
+        let userId = req.user.id;
+        commentArgs.author = userId;
+
+        let id = req.params.id;
+        let articleArgs = req.body;
+        commentArgs.article = id;
+
+        Comment.create(commentArgs).then(comment => {
+            req.article.comments.push(comment.id);
+            req.article.save(err =>{
+                if(err){
+                    res.render('article/comment', {
+                        error: err.message
+                    });
+                }else{
+                    res.redirect(`/article/details/${id}`);
+                }
+            });
+        });
+        //console.log(userId);
+        //console.log(articleId);
     }
 };

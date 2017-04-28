@@ -8,6 +8,7 @@ let articleSchema = mongoose.Schema({
     date: {type: Date, default: Date.now()},
     imagePath: {type: String},
     tags: {type: String},
+    comments: [{type: ObjectId, ref: 'Comment'}],
 });
 
 const Article = mongoose.model('Article', articleSchema);
